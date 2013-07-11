@@ -1,5 +1,6 @@
+
 project(Protobuf)
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.1)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(CheckIncludeFiles)
@@ -86,21 +87,15 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   endif()
 endif()
 
-
-if(WIN32 AND BUILD_SHARED_LIBS AND MSVC)
-    add_definitions("-DPROTOBUF_USE_DLLS")
-endif()
-add_definitions("-D_GNU_SOURCE=1")
-configure_file("config.h.in" "config.h")
-
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 option(PROTOBUF_ROOT "Location of protobuf sources.")
 if (NOT PROTOBUF_ROOT)
   message(FATAL_ERROR "PROTOBUF_ROOT must be set to the location of protobuf sources.")
 endif()
 
 message(STATUS "Protobuf sources in ${PROTOBUF_ROOT}")
+
+include(protobuf-common.cmake)
+
 add_subdirectory(libprotobuf)
 add_subdirectory(libprotoc)
 add_subdirectory(protoc)

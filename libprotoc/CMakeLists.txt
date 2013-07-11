@@ -1,6 +1,3 @@
-project( libprotoc )
-
-include( ../protobuf-common.cmake )
 
 append_if_exist(SOURCES
   ${PROTOBUF_ROOT}/src/google/protobuf/compiler/code_generator.cc

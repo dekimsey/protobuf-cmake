@@ -1,6 +1,3 @@
-project( protoc )
-
-include( ../protobuf-common.cmake )
 
 set(SOURCES
   ${PROTOBUF_ROOT}/src/google/protobuf/compiler/main.cc

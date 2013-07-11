@@ -1,7 +1,22 @@
+
 include_directories( ${PROTOBUF_ROOT}/src )
 
 # Set relative rpath for protoc to be able to find libs after installed
 set(CMAKE_INSTALL_RPATH "\$ORIGIN/../lib")
+
+cmake_policy(SET CMP0015 NEW)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
+if(WIN32 AND BUILD_SHARED_LIBS AND MSVC)
+    add_definitions("-DPROTOBUF_USE_DLLS")
+endif()
+
+add_definitions("-D_GNU_SOURCE=1")
+configure_file("config.h.in" "config.h")
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # config.h is generated from cmake now, so use on all platforms
 add_definitions( -DHAVE_CONFIG_H )
