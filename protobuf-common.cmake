@@ -14,11 +14,10 @@ if(WIN32 AND BUILD_SHARED_LIBS AND MSVC)
 endif()
 
 add_definitions("-D_GNU_SOURCE=1")
-configure_file("config.h.in" "config.h")
-
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # config.h is generated from cmake now, so use on all platforms
+configure_file("config.h.in" "config.h")
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_definitions( -DHAVE_CONFIG_H )
 
 if( MSVC )
@@ -46,12 +45,5 @@ endfunction()
 # Install locations
 set(BIN_DIR     bin)
 set(INCLUDE_DIR include)
-if(WIN32)
-    # On windows .dlls need to be next to the binaries
-    # TODO: We don't properly build .dlls
-    # http://www.cmake.org/Wiki/BuildingWinDLL
-    # NOTE: findprotobuf doesn't work unless this is set to lib
-    set(LIB_DIR     lib)
-else()
-    set(LIB_DIR     lib)
-endif()
+set(LIB_DIR     lib)
+

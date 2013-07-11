@@ -40,16 +40,16 @@ if(WIN32 AND BUILD_SHARED_LIBS AND MSVC)
     add_definitions("-DLIBPROTOC_EXPORTS")
 endif()
 
-add_library( libprotoc ${SOURCES} )
+add_library(libprotoc STATIC ${SOURCES} )
 target_link_libraries( libprotoc libprotobuf )
 set_target_properties(libprotoc PROPERTIES OUTPUT_NAME "protoc")
 
-if(WIN32 AND BUILD_SHARED_LIBS AND MSVC)
-    # Install 
-    install(TARGETS libprotoc
-        DESTINATION ${BIN_DIR}
-      )
-endif()
-install(TARGETS libprotoc
-    DESTINATION ${LIB_DIR}
+add_library( libprotoc_lib STATIC ${SOURCES} )
+target_link_libraries( libprotoc_lib libprotobuf )
+set_target_properties(libprotoc_lib PROPERTIES OUTPUT_NAME "protoc")
+
+install(TARGETS libprotoc libprotoc_lib
+    RUNTIME DESTINATION ${BIN_DIR}
+    LIBRARY DESTINATION ${LIB_DIR}
+    ARCHIVE DESTINATION ${LIB_DIR}
     )
