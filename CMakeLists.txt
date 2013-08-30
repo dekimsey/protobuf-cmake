@@ -1,4 +1,3 @@
-
 project(Protobuf)
 cmake_minimum_required(VERSION 2.8.1)
 
@@ -17,7 +16,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   set(CMAKE_REQUIRED_FLAGS )
 
   if(HAVE_UNORDERED_MAP)
-    add_definitions("-std=c++11") # For unordered_map
     set(HASH_MAP_H "<unordered_map>")
     set(HASH_MAP_CLASS "unordered_map")
     set(HASH_NAMESPACE "std")
